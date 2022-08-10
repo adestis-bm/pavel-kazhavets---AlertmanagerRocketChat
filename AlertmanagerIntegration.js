@@ -37,10 +37,10 @@ class Script {
                         "text": content_text,
                         "fields": alertFields,
                         "color": alertColor
-                    },
-                    {
-                        "title": "Full Content",
-                        "text": '```json\n'+JSON.stringify(request.content, null, 2)+'\n```'
+//                    },
+//                    {
+//                        "title": "Full Content",
+//                        "text": '```json\n'+JSON.stringify(request.content, null, 2)+'\n```'
                     }
                 ]
             }
