@@ -1,9 +1,7 @@
 class Script {
     process_incoming_request({
-                                 request
-                             }) {
-        console.log(request.content);
-
+        request
+    }) {
         var alertColor = "warning";
         if (request.content.status == "resolved") {
             alertColor = "good";
@@ -46,13 +44,22 @@ class Script {
 
         return {
             content: {
-                username: "Prometheus Alert",
-                attachments: [{
-                    color: alertColor,
-                    title_link: request.content.externalURL,
-                    title: "Prometheus notification",
-                    fields: finFields
-                }]
+                "emoji": ":ghost:",
+                "text": "Prometheus notification",
+                "attachments": [
+                    {
+                        "title": "Prometheus notification",
+                        "title_link": request.content.externalURL,
+                        "text": finFields,
+                        "color": alertColor
+                    }
+                ]
+            }
+        };
+        
+        return {
+            error: {
+                success: false
             }
         };
     }
