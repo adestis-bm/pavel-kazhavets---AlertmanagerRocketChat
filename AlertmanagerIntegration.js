@@ -1,7 +1,5 @@
 class Script {
-    process_incoming_request({
-        request
-    }) {
+    process_incoming_request({ request }) {
         var alertColor = "warning";
         if (request.content.status == "resolved") {
             alertColor = "good";
@@ -9,57 +7,42 @@ class Script {
             alertColor = "danger";
         }
 
-        let finFields = [];
-        for (i = 0; i < request.content.alerts.length; i++) {
-            var endVal = request.content.alerts[i];
+        var content_text = "";
+        let alertFields = [];
+
+        for (const alert of request.content.alerts){
             var elem = {
-                title: "alertname: " + endVal.labels.alertname,
-                value: "*Prometheus:* " + endVal.labels.prometheus,
+                title: "alertname: " + alert.labels.alertname,
+                value: alert.annotations.message,
                 short: false
             };
-
-            finFields.push(elem);
-
-            if (!!endVal.annotations.summary) {
-                finFields.push({
-                    title: "Summary",
-                    value: endVal.annotations.summary
-                });
-            }
-
-            if (!!endVal.annotations.severity) {
-                finFields.push({
-                    title: "Severity",
-                    value: endVal.annotations.severity
-                });
-            }
-
-            if (!!endVal.annotations.message) {
-                finFields.push({
-                    title: "Description",
-                    value: endVal.annotations.message
-                });
-            }
+            alertFields.push(elem);
         }
+
+        //var footer = {
+        //    title: "Full Content:",
+        //    value: '```\n'+JSON.stringify(request.content, null, 2)+'\n```',
+        //    short: false
+        //};
+        //alertFields.push(footer);
 
         return {
             content: {
-                "emoji": ":ghost:",
-                "text": "Prometheus notification",
-                "attachments": [
+                emoji: ":ghost:",
+                text: "Prometheus notification: " + request.content.status,
+                attachments: [
                     {
-                        "title": "Prometheus notification",
+                        "title": request.content.commonAnnotations.message,
                         "title_link": request.content.externalURL,
-                        "text": finFields,
+                        "text": content_text,
+                        "fields": alertFields,
                         "color": alertColor
+                    },
+                    {
+                        "title": "Full Content",
+                        "text": '```json\n'+JSON.stringify(request.content, null, 2)+'\n```'
                     }
                 ]
-            }
-        };
-        
-        return {
-            error: {
-                success: false
             }
         };
     }

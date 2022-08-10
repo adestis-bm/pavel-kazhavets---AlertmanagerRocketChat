@@ -1,0 +1,50 @@
+{
+    "receiver": "webhook-rocket-chat",
+    "status": "firing",
+    "alerts": [
+      {
+        "status": "firing",
+        "labels": {
+          "alertname": "etcdHighNumberOfFailedGRPCRequests",
+          "grpc_method": "Watch",
+          "grpc_service": "etcdserverpb.Watch",
+          "instance": "100.71.206.33:2379",
+          "job": "kube-etcd",
+          "prometheus": "cattle-monitoring-system/rancher-monitoring-prometheus",
+          "severity": "critical"
+        },
+        "annotations": {
+          "message": "etcd cluster \"kube-etcd\": 100% of requests for Watch failed on etcd instance 100.71.206.33:2379."
+        },
+        "startsAt": "2022-08-10T17:13:10.979Z",
+        "endsAt": "0001-01-01T00:00:00Z",
+        "generatorURL": "https://rancher-01.adestis.net/k8s/clusters/c-lbcrg/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-prometheus:9090/proxy/graph?g0.expr=100+%2A+sum+by%28job%2C+instance%2C+grpc_service%2C+grpc_method%29+%28rate%28grpc_server_handled_total%7Bgrpc_code%21%3D%22OK%22%2Cjob%3D~%22.%2Aetcd.%2A%22%7D%5B5m%5D%29%29+%2F+sum+by%28job%2C+instance%2C+grpc_service%2C+grpc_method%29+%28rate%28grpc_server_handled_total%7Bjob%3D~%22.%2Aetcd.%2A%22%7D%5B5m%5D%29%29+%3E+5&amp;g0.tab=1",
+        "fingerprint": "39ad43a6ad2c47a0"
+      }
+    ],
+    "groupLabels": {
+      "alertname": "etcdHighNumberOfFailedGRPCRequests",
+      "grpc_method": "Watch",
+      "grpc_service": "etcdserverpb.Watch",
+      "instance": "100.71.206.33:2379",
+      "job": "kube-etcd",
+      "prometheus": "cattle-monitoring-system/rancher-monitoring-prometheus",
+      "severity": "critical"
+    },
+    "commonLabels": {
+      "alertname": "etcdHighNumberOfFailedGRPCRequests",
+      "grpc_method": "Watch",
+      "grpc_service": "etcdserverpb.Watch",
+      "instance": "100.71.206.33:2379",
+      "job": "kube-etcd",
+      "prometheus": "cattle-monitoring-system/rancher-monitoring-prometheus",
+      "severity": "critical"
+    },
+    "commonAnnotations": {
+      "message": "etcd cluster \"kube-etcd\": 100% of requests for Watch failed on etcd instance 100.71.206.33:2379."
+    },
+    "externalURL": "https://rancher-01.adestis.net/k8s/clusters/c-lbcrg/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-alertmanager:9093/proxy",
+    "version": "4",
+    "groupKey": "{}/{alertname=~\"^(?:.*)$\"}:{alertname=\"etcdHighNumberOfFailedGRPCRequests\", grpc_method=\"Watch\", grpc_service=\"etcdserverpb.Watch\", instance=\"100.71.206.33:2379\", job=\"kube-etcd\", prometheus=\"cattle-monitoring-system/rancher-monitoring-prometheus\", severity=\"critical\"}",
+    "truncatedAlerts": 0
+  }
